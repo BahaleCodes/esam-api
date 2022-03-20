@@ -6,8 +6,6 @@ from rest_framework.permissions import AllowAny
 from rest_framework import viewsets, filters, generics, permissions
 from .models import *
 
-
-
 class CustomUserCreate(APIView):
     permission_classes = [AllowAny]
 
