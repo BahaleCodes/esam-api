@@ -1,10 +1,13 @@
+from email.policy import default
 from pathlib import Path
 from datetime import timedelta
 import os
+from decouple import config
+from dj_database_url import parse as dburl
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'apuvicmef^(!j8gx&clu0u(!8m0r^etok^l0)kc!---#(i5=dt'
-DEBUG = True
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -66,12 +69,10 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+default_dburl = 'sqlite:///'+os.path.join(BASE_DIR, 'db.sqlite3')
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': config('DATABASE_URL', default=default_dburl, cast=dburl)
 }
 
 
@@ -176,3 +177,4 @@ EMAIL_HOST_PASSWORD='prqlxzdqftieoicu'
 EMAIL_HOST_USER='yangmotlhale@gmail.com'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles');
