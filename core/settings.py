@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # Oauth
@@ -173,8 +174,15 @@ SOCIAL_AUTH_USER_FIELDS = ['email', 'username', 'first_name', 'password']
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD='prqlxzdqftieoicu'
-EMAIL_HOST_USER='yangmotlhale@gmail.com'
+EMAIL_HOST_PASSWORD = 'prqlxzdqftieoicu'
+EMAIL_HOST_USER = 'yangmotlhale@gmail.com'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles');
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
